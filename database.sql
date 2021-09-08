@@ -1,9 +1,9 @@
 CREATE TABLE songs (
-	id SERIAL,
-	rank int,
-	artist varchar(256),
-	track varchar(562),
-	published date
+	"id" SERIAL,
+	"rank" int,
+	"artist" varchar(256),
+	"track" varchar(562),
+	"published" date
 );
 
 INSERT INTO "songs" 

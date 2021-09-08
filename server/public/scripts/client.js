@@ -22,10 +22,14 @@ function getSongs() {
                     <td>${response[i].rank}</td>
                     <td>${response[i].published}</td>
                 </tr>
-            `);
+            `); // TODO: Add .catch
         }
     });
 }
+
+/**
+ * Send a song to the server when the user clicks on 'Add'
+ */
 
 function postSong() {
     let payloadObject = {
@@ -44,5 +48,5 @@ function postSong() {
         $('#rank').val(''),
         $('#published').val('')
         getSongs();
-    });
+    }); // TODO: Add .catch
 }

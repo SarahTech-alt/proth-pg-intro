@@ -4,8 +4,8 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // Setup body parser - to translating request body into JSON
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); // Accept req.body from jQuery
+app.use(bodyParser.json()); // Accept req.body from React
 
 // Serve "static assets" (html, css, client-side js)
 // from the server/public folder
