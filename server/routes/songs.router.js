@@ -55,9 +55,22 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    songs.push(req.body);
-    res.sendStatus(200); // Indicates success and nothing else number assumes 
-                        // status code same as res.send(200);
+    const newSong = req.body;
+    const queryText = `INSERT INTO "songs" ("rank", "artist", "track", "published")
+	VALUES ($1, $2, $3, $4);
+    `;
+     // telling server we're going to drop in four 
+                                // things that match values from below
+    pool.query(queryText, [
+        newSong.rank, // $1
+        newSong.artist, // $2
+        newSong.track, // $3
+        newSong.published, // $4
+    ]).then((result) => {
+        res.sendStatus(200);
+    }).catch((error) => {
+        res.sendStatus(500);
+    });
 });
 
 module.exports = router;
