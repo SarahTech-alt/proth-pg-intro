@@ -54,6 +54,33 @@ router.get('/', (req, res) => {
     }); 
 });
 
+/**
+ * @api {delete} /songs/:id Delete Song
+ * @apiDescription This will delete a specific song from the database
+ * 
+ * @apiParam {Number} id The id of the song we want to delete
+ */
+
+// colon after delete gets you more information, 
+// takes what is in the URL and puts it into the request as a variable
+router.delete('/:id', (req, res) => {
+    // songs/4 will assign req.params.id = 4
+    // songs/1000 will assign req.params.id = 1000
+    console.log(req.params);
+    // req.params is an object with properties
+    // assigned values based on the url
+    // colon after / means whatever is placed after creates a property 
+    // and gives it the value of what you place in after
+    const songId = req.params.id;
+    const queryText = 'DELETE FROM "songs" WHERE "id" = $1;'
+    pool.query(queryText, [songId]).then((result) => {
+        res.sendStatus(200);
+    }).catch((error) => {
+        console.log('Error in /songs DELETE', error);
+        res.sendStatus(500);
+    })
+});
+
 router.post('/', (req, res) => {
     console.log('In /songs POST', newSong);
     const newSong = req.body;
@@ -61,7 +88,7 @@ router.post('/', (req, res) => {
 	VALUES ($1, $2, $3, $4);
     `;
      // telling server we're going to drop in four 
-                                // things that match values from below
+    // things that match values from below
     pool.query(queryText, [
         newSong.rank, // $1
         newSong.artist, // $2
