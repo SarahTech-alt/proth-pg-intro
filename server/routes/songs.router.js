@@ -63,7 +63,7 @@ router.get('/', (req, res) => {
 
 // colon after delete gets you more information, 
 // takes what is in the URL and puts it into the request as a variable
-router.delete('/:id', (req, res) => {
+router.delete('/:id', (req, res) => { // route parameter
     // songs/4 will assign req.params.id = 4
     // songs/1000 will assign req.params.id = 1000
     console.log(req.params);
@@ -80,6 +80,25 @@ router.delete('/:id', (req, res) => {
         res.sendStatus(500);
     })
 });
+/**
+ * @api {put} /songs/:id Rank Number One
+ * @apiDescription Set the rank of a song to 1 that
+ * matches the id provided
+ * 
+ * @apiParam {Number} id The id of the song to rank 1
+ */
+
+router.put('/:id', (req,res) => {
+    console.log(req.params);
+    const songId = req.params.id;
+    const queryText = 'UPDATE "songs" SET "rank" = 1 WHERE "id" = $1;'
+    pool.query(queryText, [songId]).then( (result ) => {
+        res.sendStatus(200);
+    }).catch((error) => {
+        console.log('error in /songs PUT', error);
+        res.sendStatus(500);
+    })
+})
 
 router.post('/', (req, res) => {
     console.log('In /songs POST', newSong);
