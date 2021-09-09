@@ -55,6 +55,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+    console.log('In /songs POST', newSong);
     const newSong = req.body;
     const queryText = `INSERT INTO "songs" ("rank", "artist", "track", "published")
 	VALUES ($1, $2, $3, $4);

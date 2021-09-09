@@ -38,6 +38,8 @@ function postSong() {
         rank: $('#rank').val(),
         published: $('#published').val()
     }
+    console.log('Calling /songs POST');
+    
     $.ajax({
         type: 'POST',
         url: '/songs',
